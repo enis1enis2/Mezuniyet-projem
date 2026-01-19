@@ -1,5 +1,6 @@
 flask
-python-dotenv
-pydub
+waitress
 faster-whisper
-google-genai
+pydub
+google-generativeai
+python-dotenv
