@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mezuniyet Projesi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center">
+
+<div class="bg-gray-800 p-8 rounded-xl w-full max-w-md shadow-xl">
+    <h1 class="text-2xl font-bold mb-4 text-center">🎙️ Ses → Yapay Zeka</h1>
+
+    <input type="file" id="audio" class="mb-4 w-full">
+    <button onclick="upload()" class="w-full bg-indigo-600 hover:bg-indigo-700 p-2 rounded">
+        Yükle & Çevir
+    </button>
+
+    <div id="result" class="mt-4 text-sm whitespace-pre-wrap"></div>
+</div>
+
+<script src="{{ url_for('static', filename='upload.js') }}"></script>
+</body>
+</html>

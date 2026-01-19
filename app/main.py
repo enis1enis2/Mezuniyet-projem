@@ -1,9 +1,16 @@
 from flask import Flask, render_template, request, jsonify
 from .stt import speech_to_text
 from .gemini import ask_gemini
+from dotenv import load_dotenv
+load_dotenv(dotenv_path=".env")
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(
+        __name__,
+        static_url_path="/proxy/8000/static",
+        static_folder="static",
+        template_folder="templates"
+    )
 
     @app.route("/")
     def index():
@@ -21,5 +28,9 @@ def create_app():
             "transcript": text,
             "response": ai_response
         })
+    @app.route("/ask", methods=["POST"])
+    def ask():
+        prompt = request.json.get("prompt")
+        return jsonify({"response": ask_gemini(prompt)})
 
     return app

@@ -1,10 +1,15 @@
-import google.generativeai as genai
-from .config import GEMINI_API_KEY
+import os
+from google import genai
 
-genai.configure(api_key=GEMINI_API_KEY)
+def ask_gemini(prompt: str) -> str:
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY environment variable is missing")
 
-model = genai.GenerativeModel("gemini-1.5-flash")
+    client = genai.Client(api_key=api_key)
 
-def ask_gemini(prompt):
-    response = model.generate_content(prompt)
+    response = client.models.generate_content(
+        model="gemini-1.5-flash",
+        contents=prompt
+    )
     return response.text
