@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>STT + Gemini</title>
+</head>
+<body>
+
+<h2>🎙 Ses Dosyası Yükle</h2>
+
+<input type="file" id="audio" accept="audio/*">
+<button onclick="send()">Gönder</button>
+
+<pre id="out"></pre>
+
+<script>
+async function send() {
+    const file = document.getElementById("audio").files[0];
+    if (!file) {
+        alert("Ses dosyası seç");
+        return;
+    }
+
+    const fd = new FormData();
+    fd.append("audio", file);
+
+    // 🔴 İŞTE BURASI
+    const res = await fetch("upload", {
+        method: "POST",
+        body: fd
+    });
+
+    const data = await res.json();
+
+    document.getElementById("out").innerText =
+        "Metin:\n" + data.text + "\n\nGemini:\n" + data.response;
+}
+</script>
+
+</body>
+</html>
